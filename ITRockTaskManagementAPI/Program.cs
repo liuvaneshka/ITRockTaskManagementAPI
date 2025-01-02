@@ -1,6 +1,19 @@
+using ITRockTaskManagementAPI.Data;
+using ITRockTaskManagementAPI.Repositories;
+using ITRockTaskManagementAPI.RepositoryContracts;
+using ITRockTaskManagementAPI.ServiceContracts;
+using ITRockTaskManagementAPI.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
+builder.Services.AddDbContext<TaskContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
