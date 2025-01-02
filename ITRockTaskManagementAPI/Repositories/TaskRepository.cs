@@ -7,9 +7,9 @@
 
     public class TaskRepository : ITaskRepository
     {
-        private readonly TaskContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public TaskRepository(TaskContext context)
+        public TaskRepository(ApplicationDbContext context)
         {
             _context = context;
         }
