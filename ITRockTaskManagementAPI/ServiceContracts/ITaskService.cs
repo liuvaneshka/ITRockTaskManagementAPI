@@ -15,5 +15,12 @@
         /// <param name="task"></param>
         /// <returns></returns>
         Task<TaskEntity> CreateTaskAsync(TaskEntity task);
+
+        /// <summary>
+        /// Get a Task by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> a task </returns>
+        Task<TaskEntity?> GetTaskByIdAsync(int id);
     }
 }

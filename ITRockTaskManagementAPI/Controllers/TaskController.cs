@@ -43,5 +43,18 @@ namespace ITRockTaskManagementAPI.Controllers
             return await _service.GetAllTasksAsync();
         }
 
+        [HttpGet("{id}", Name = "GetTaskById")]
+        public async Task<ActionResult<TaskEntity>> GetTaskById(int id)
+        {
+            var task = await _service.GetTaskByIdAsync(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(task);
+        }
+
     }
 }

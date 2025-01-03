@@ -6,5 +6,7 @@
     {
         Task<List<TaskEntity>> GetAllTasksAsync();
         Task<TaskEntity> AddTaskAsync(TaskEntity task);
+        Task<TaskEntity?> GetTaskByIdAsync(int id);
+
     }
 }

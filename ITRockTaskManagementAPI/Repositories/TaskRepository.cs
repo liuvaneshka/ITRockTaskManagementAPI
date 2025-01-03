@@ -22,6 +22,11 @@ namespace ITRockTaskManagementAPI.Repositories
             await DbContext.SaveChangesAsync();
             return addedTask.Entity;
         }
+
+        public async Task<TaskEntity?> GetTaskByIdAsync(int id)
+        {
+            return await DbSet.FindAsync(id);
+        }
     }
 }
 

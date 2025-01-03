@@ -22,5 +22,10 @@
         {
             return await _repository.AddTaskAsync(task);
         }
+
+        public async Task<TaskEntity?> GetTaskByIdAsync(int id)
+        {
+            return await _repository.GetTaskByIdAsync(id);
+        }
     }
 }
