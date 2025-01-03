@@ -10,6 +10,7 @@ namespace ITRockTaskManagementAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ServiceFilter(typeof(ExceptionHandlingFilter))]
+    [ServiceFilter(typeof(ApiKeyFilter))]
     public class TaskController : ControllerBase
     {
         private readonly ITaskService _service;
