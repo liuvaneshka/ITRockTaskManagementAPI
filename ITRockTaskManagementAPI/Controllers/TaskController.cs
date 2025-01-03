@@ -1,5 +1,7 @@
 ﻿using ITRockTaskManagementAPI.Entities;
 using ITRockTaskManagementAPI.Filters;
+using ITRockTaskManagementAPI.Requests;
+using ITRockTaskManagementAPI.Responses;
 using ITRockTaskManagementAPI.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,55 +20,50 @@ namespace ITRockTaskManagementAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TaskEntity>> CreateTask([FromBody] TaskEntity task)
+        public async Task<IActionResult> CreateTask([FromBody] TaskCreateRequest taskRequest)
         {
-            try
-            {
-                if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
-                var createdTask = await _service.CreateTaskAsync(task);
+            var taskEntity = new TaskEntity
+            {
+                Title = taskRequest.Title,
+                Description = taskRequest.Description,
+                IsCompleted = taskRequest.IsCompleted,
+                DueDate = taskRequest.DueDate
+            };
 
-                return CreatedAtRoute("GetTaskById", new { id = createdTask.Id }, createdTask);
-            }
-            catch (ArgumentException ex)
+            var createdTask = await _service.CreateTaskAsync(taskEntity);
+
+            var taskResponse = new TaskResponse
             {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+                Id = createdTask.Id,
+                Title = createdTask.Title,
+                Description = createdTask.Description,
+                IsCompleted = createdTask.IsCompleted,
+                DueDate = createdTask.DueDate
+            };
+
+            return CreatedAtRoute("GetTaskById", new { id = createdTask.Id }, taskResponse);
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TaskEntity>>> GetAllTasks()
+        public async Task<IActionResult> GetAllTasks()
         {
-            try
-            {
-                var tasks = await _service.GetAllTasksAsync();
-                return Ok(tasks);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var tasks = await _service.GetAllTasksAsync();
+            var taskResponses = tasks.Select(task => _service.ConvertToTaskResponse(task)).ToList();
+
+            return Ok(taskResponses);
         }
 
         [HttpGet("{id}", Name = "GetTaskById")]
-        public async Task<ActionResult<TaskEntity>> GetTaskById(int id)
+        public async Task<IActionResult> GetTaskById(int id)
         {
-            try
-            {
-                var task = await _service.GetTaskByIdAsync(id);
-                if (task == null) return NotFound();
-                return Ok(task);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Internal server error: {ex.Message}");
-            }
-        }
+            var task = await _service.GetTaskByIdAsync(id);
+            if (task == null) return NotFound($"Task with ID {id} not found.");
 
+            var taskResponse = _service.ConvertToTaskResponse(task);
+
+            return Ok(taskResponse);
+        }
     }
 }

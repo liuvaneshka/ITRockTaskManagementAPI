@@ -1,6 +1,7 @@
 ﻿namespace ITRockTaskManagementAPI.ServiceContracts
 {
     using ITRockTaskManagementAPI.Entities;
+    using ITRockTaskManagementAPI.Responses;
 
     public interface ITaskService
     {
@@ -22,5 +23,12 @@
         /// <param name="id"></param>
         /// <returns> a task </returns>
         Task<TaskEntity?> GetTaskByIdAsync(int id);
+
+        /// <summary>
+        /// Creates a task respnse based upon the task entity
+        /// </summary>
+        /// <param name="taskEntity"></param>
+        /// <returns></returns>
+        TaskResponse ConvertToTaskResponse(TaskEntity taskEntity);
     }
 }

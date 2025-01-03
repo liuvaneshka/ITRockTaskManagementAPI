@@ -3,6 +3,7 @@
     using ITRockTaskManagementAPI.Entities;
     using ITRockTaskManagementAPI.ServiceContracts;
     using ITRockTaskManagementAPI.RepositoryContracts;
+    using ITRockTaskManagementAPI.Responses;
 
     public class TaskService : ITaskService
     {
@@ -26,6 +27,18 @@
         public async Task<TaskEntity?> GetTaskByIdAsync(int id)
         {
             return await _repository.GetTaskByIdAsync(id);
+        }
+
+        public TaskResponse ConvertToTaskResponse(TaskEntity taskEntity)
+        {
+            return new TaskResponse
+            {
+                Id = taskEntity.Id,
+                Title = taskEntity.Title,
+                Description = taskEntity.Description,
+                IsCompleted = taskEntity.IsCompleted,
+                DueDate = taskEntity.DueDate
+            };
         }
     }
 }
