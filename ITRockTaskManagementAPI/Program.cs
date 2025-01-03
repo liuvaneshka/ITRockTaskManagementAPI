@@ -1,4 +1,5 @@
 using ITRockTaskManagementAPI.Data;
+using ITRockTaskManagementAPI.Filters;
 using ITRockTaskManagementAPI.Repositories;
 using ITRockTaskManagementAPI.RepositoryContracts;
 using ITRockTaskManagementAPI.ServiceContracts;
@@ -14,6 +15,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ExceptionHandlingFilter>();
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ExceptionHandlingFilter>(); 
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,13 +1,13 @@
 ﻿using ITRockTaskManagementAPI.Entities;
+using ITRockTaskManagementAPI.Filters;
 using ITRockTaskManagementAPI.ServiceContracts;
-using ITRockTaskManagementAPI.RepositoryContracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITRockTaskManagementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ServiceFilter(typeof(ExceptionHandlingFilter))]
     public class TaskController : ControllerBase
     {
         private readonly ITaskService _service;
@@ -18,11 +18,12 @@ namespace ITRockTaskManagementAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TaskEntity>> CreateTask(TaskEntity task)
+        public async Task<ActionResult<TaskEntity>> CreateTask([FromBody] TaskEntity task)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(task.Title)) return BadRequest("Title is required.");
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+
                 var createdTask = await _service.CreateTaskAsync(task);
 
                 return CreatedAtRoute("GetTaskById", new { id = createdTask.Id }, createdTask);
@@ -40,20 +41,31 @@ namespace ITRockTaskManagementAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<TaskEntity>>> GetAllTasks()
         {
-            return await _service.GetAllTasksAsync();
+            try
+            {
+                var tasks = await _service.GetAllTasksAsync();
+                return Ok(tasks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         [HttpGet("{id}", Name = "GetTaskById")]
         public async Task<ActionResult<TaskEntity>> GetTaskById(int id)
         {
-            var task = await _service.GetTaskByIdAsync(id);
-
-            if (task == null)
+            try
             {
-                return NotFound();
+                var task = await _service.GetTaskByIdAsync(id);
+                if (task == null) return NotFound();
+                return Ok(task);
             }
-
-            return Ok(task);
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Internal server error: {ex.Message}");
+            }
         }
 
     }
