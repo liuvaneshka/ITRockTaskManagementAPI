@@ -12,12 +12,17 @@ A simple RESTful API for managing personal tasks, built with .NET.
 -   **Repository Pattern:** Separates concerns in data access for maintainability and testability.
 -   **Unit Testing:** Validates core components using unit tests to ensure reliability.
 -   **Request and Response Models:** Provides structured models for clear API communication.
+-   **CI pipeline with GitHub Actions**
 
 ## Requirements
 
 -   .NET 8 SDK 
 -   SQL Server
 -   Visual Studio 2022 or later
+
+## Testing Endpoint on swagger trhu VS
+
+[Jam Link](https://jam.dev/c/0a91c96b-9f1e-45cb-8bf7-1b2798a4b7fe)
 
 # Setup Instructions
 
@@ -33,6 +38,7 @@ A simple RESTful API for managing personal tasks, built with .NET.
 **3.  Add the API Key**
 
 	#### **Using Manage User Secrets**
+ 	[Here is a link on how to manage user secrets on VS:](https://jam.dev/c/99b18788-18b6-4130-95ed-f2f1db5ad5e1)
 
 	1.  Right-click the project in **Solution Explorer**.
 	2.  Select **Manage User Secrets**.
