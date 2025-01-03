@@ -5,9 +5,7 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITRockTaskManagementAPI", "ITRockTaskManagementAPI\ITRockTaskManagementAPI.csproj", "{919FFC10-B1B9-4B3B-9E2E-1A5A57F6DB50}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITRockTaskManagemen.Entities", "ITRockTaskManagemen.Entities\ITRockTaskManagemen.Entities.csproj", "{4C74A6CC-3C5D-4782-A6DF-0D7F0A582BC4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITRockTaskManagementAPI.Tests", "ITRockTaskManagementTests\ITRockTaskManagementAPI.Tests.csproj", "{E0FAEF3F-FE2D-4CC8-976B-A086A9CA0385}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITRockTaskManagementAPI.Tests", "ITRockTaskManagementTests\ITRockTaskManagementAPI.Tests.csproj", "{E0FAEF3F-FE2D-4CC8-976B-A086A9CA0385}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{919FFC10-B1B9-4B3B-9E2E-1A5A57F6DB50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{919FFC10-B1B9-4B3B-9E2E-1A5A57F6DB50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{919FFC10-B1B9-4B3B-9E2E-1A5A57F6DB50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C74A6CC-3C5D-4782-A6DF-0D7F0A582BC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C74A6CC-3C5D-4782-A6DF-0D7F0A582BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C74A6CC-3C5D-4782-A6DF-0D7F0A582BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C74A6CC-3C5D-4782-A6DF-0D7F0A582BC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0FAEF3F-FE2D-4CC8-976B-A086A9CA0385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0FAEF3F-FE2D-4CC8-976B-A086A9CA0385}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0FAEF3F-FE2D-4CC8-976B-A086A9CA0385}.Release|Any CPU.ActiveCfg = Release|Any CPU
